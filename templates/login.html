@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/login.css') }}">
+<script src="{{ url_for('static', filename='login.js')}}"></script>
+{% endblock %}
+{% block body %}
+  <div id="center-form">
+    <object class="titleimage" data="{{ url_for('static', filename='images/flack.svg') }}"></object>
+    <form id="login">
+      <div class="form-group">
+        <input id="username" type="text" class="form-control input-lg" autofocus="true" autocomplete="off" placeholder="Enter Username">
+      </div>
+      <button id="enterchat" type="submit" class="btn  btn-info btn-lg">Join Chat</button>
+    </div>
+{% endblock %}
