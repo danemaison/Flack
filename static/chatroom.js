@@ -64,13 +64,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   // Callback functions for socket.io
   socket.on('joined', function(message){
-    console.log(message);
     const li = document.createElement('li');
     li.innerHTML = `${message.message}`;
     document.querySelector('#messages').append(li);
   });
   socket.on('left', function(message){
-    console.log(message);
     const li = document.createElement('li');
     li.innerHTML = `${message.message}`;
     document.querySelector('#messages').append(li);
@@ -95,7 +93,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     button.className = "list-group-item list-group-item-action";
     button.setAttribute("style", "animation-name:show;animation-duration:2s;animation-fill-mode:forwards;");
     document.querySelector('.list-group').append(button);
-    console.log("test");
   });
 
   // When a message is sent call 'send message' function from server
@@ -148,7 +145,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
       // Create a channel
       socket.emit('create_c', {'channel':channel});
-      console.log('hello');
       localStorage.setItem('channelCount', '1');
       localStorage.setItem('myChannel', `${channel}`);
     };

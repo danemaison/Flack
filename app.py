@@ -39,7 +39,6 @@ def message(message):
     messages.setdefault(channel, []).append({"time":time,"username":username, "message":message})
     if len(messages[channel]) == 100:
         messages[channel].pop(0)
-    print(messages[channel])
     emit('send', {'time':time,'username':username, 'message': message}, room=room, broadcast=True)
 
 
@@ -64,11 +63,8 @@ def on_leave(data):
 
 @socketio.on('create_c', namespace="/test")
 def create_channel(data):
-    print(data)
     channel = data['channel']
-    print("hello?")
     channels.append(channel)
-    print(channels)
     emit('channel_created', {'channel': channel}, broadcast=True)
 
 if __name__ == '__main__':
