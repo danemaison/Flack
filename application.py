@@ -28,7 +28,7 @@ def index():
 def chatroom():
     return render_template("chatroom.html", channels=channels, messages=messages['general'])
 
-@socketio.on("send message", namespace="/test")
+@socketio.on("send message")
 def message(message):
     time = datetime.datetime.now()
     time = str(time.hour) + ":" + str(time.minute) + ":" + str(time.second)
@@ -42,26 +42,26 @@ def message(message):
     emit('send', {'time':time,'username':username, 'message': message}, room=room, broadcast=True)
 
 
-@socketio.on("my_event", namespace="/test")
+@socketio.on("my_event")
 def test_message(message):
     emit('my_response', {'data':message['data']})
 
 
-@socketio.on('join', namespace="/test")
+@socketio.on('join')
 def on_join(data):
     username = data['username']
     channel = data['channel']
     join_room(channel)
     emit('joined', {'message': username + ' has entered the room ' + channel + '.'}, broadcast=True, room=channel)
 
-@socketio.on('leave', namespace="/test")
+@socketio.on('leave')
 def on_leave(data):
     username = data['username']
     channel = data['channel']
     leave_room(channel)
     emit('left', {'message': username + ' has left the room ' + channel + '.'}, broadcast=True, room=channel)
 
-@socketio.on('create_c', namespace="/test")
+@socketio.on('create_c')
 def create_channel(data):
     channel = data['channel']
     channels.append(channel)

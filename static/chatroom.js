@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 
   // Connect to socket.io
-  var namespace = '/test';
-  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
   // Load clicked channel and change active button
   document.addEventListener('click', function (e) {
