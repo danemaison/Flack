@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelector('#send-message').onsubmit = () => {
     let message = document.querySelector('#m').value;
     let channel = document.querySelector('.active').innerHTML;
-    message = escapeHtml(message);
+    message = sanitizeHTML(message);
     messageCounter += 1;
     if(messageCounter>4){
       window.alert("Please don't spam the chat.");
@@ -109,7 +109,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return false;
     }
     else if( message == ""){
-        return false;
+      return false;
+    }
+    else if (message.charAt(0) == " "){
+      window.alert("Your message can't begin with a space!");
+      return false;
     }
 
     socket.emit('send message', {'channel':channel, 'message': message, 'username':username});
@@ -127,6 +131,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     var channel = document.querySelector('#c').value;
+
     var allowed = true;
     if (channel.match(/^[0-9a-zA-Z]{1,16}$/)){
       allowed=true;
@@ -136,7 +141,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     else{
       allowed=false;
-      return false;
     }
     document.querySelectorAll('.list-group-item').forEach( function(button){
       if (channel == button.innerHTML){
@@ -150,14 +154,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
       window.alert("Please input a channel name.");
       return false;
     }
-    else if (channel.length > 25){
+    else if (channel.charAt(0) == ' '){
+      allowed = false;
+      window.alert("Your channel name can't begin with a space");
+      return false;
+    }
+    if (channel.length > 25){
       allowed=false;
       window.alert("Please keep your channel under 25 characters");
       return false;
     };
 
+    channel = sanitizeHTML(channel);
+    console.log(channel);
+
     if (allowed == true){
-      channel = escapeHtml(channel);
       // Create a channel
       socket.emit('create_c', {'channel':channel});
       localStorage.setItem('channelCount', '1');
@@ -203,8 +214,8 @@ function hasClass(elem, className) {
     return elem.classList.contains(className);
 }
 
-function escapeHtml(str){
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+function sanitizeHTML(str){
+  var temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
 }
