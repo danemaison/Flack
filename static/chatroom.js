@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelector('#send-message').onsubmit = () => {
     let message = document.querySelector('#m').value;
     let channel = document.querySelector('.active').innerHTML;
-
+    message = escapeHtml(message);
     messageCounter += 1;
     if(messageCounter>4){
       window.alert("Please don't spam the chat.");
@@ -126,26 +126,45 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return false;
     }
 
-    const channel = document.querySelector('#c').value;
+    var channel = document.querySelector('#c').value;
     var allowed = true;
+    if (channel.match(/^[0-9a-zA-Z]{1,16}$/)){
+      allowed=true;
+    }
+    else if(channel.match(/\s/)){
+      allowed=true;
+    }
+    else{
+      allowed=false;
+      return false;
+    }
     document.querySelectorAll('.list-group-item').forEach( function(button){
       if (channel == button.innerHTML){
         allowed = false;
         window.alert("Channel already exists.");
         return false;
       }
-      else if (channel == ''){
-        allowed = false;
-        window.alert("Please input a channel name.");
-        return false;
-      }
     });
-    if (allowed == true){
+    if (channel == ''){
+      allowed = false;
+      window.alert("Please input a channel name.");
+      return false;
+    }
+    else if (channel.length > 25){
+      allowed=false;
+      window.alert("Please keep your channel under 25 characters");
+      return false;
+    };
 
+    if (allowed == true){
+      channel = escapeHtml(channel);
       // Create a channel
       socket.emit('create_c', {'channel':channel});
       localStorage.setItem('channelCount', '1');
       localStorage.setItem('myChannel', `${channel}`);
+    }
+    else{
+      window.alert("Please provide a valid input");
     };
 
     document.querySelector('#c').value = "";
@@ -182,4 +201,10 @@ function scrollToBottom(){
 
 function hasClass(elem, className) {
     return elem.classList.contains(className);
+}
+
+function escapeHtml(str){
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
 }
