@@ -1,3 +1,6 @@
+## Check out a live demo here:
+https://flack-chat.herokuapp.com/chatroom/
+
 ## To use this application locally:
 
 Create a virtual environment and install the requirements with pip:
