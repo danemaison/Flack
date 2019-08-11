@@ -1,5 +1,5 @@
 ## Check out a live demo here:
-https://flack-chat.herokuapp.com/chatroom/
+https://flack-chat.herokuapp.com
 
 ## To use this application locally:
 
