@@ -12,13 +12,12 @@ socketio = SocketIO(app)
 time = datetime.datetime.now()
 time = str(time.hour) + ":" + str(time.minute) + ":" + str(time.second)
 messages = defaultdict(list)
-messages['general'].append({"time":time, "username":"Dane", "message":"Hey everyone! Welcome to my chat app."})
+messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
 channels = ["Programming"]
 
 @app.route("/chatroom/<string:channel>")
 def channel(channel):
     return jsonify(messages[channel])
-
 
 @app.route("/")
 def index():
