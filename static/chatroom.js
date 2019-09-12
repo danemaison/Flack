@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
   // Load clicked channel and change active button
-  document.addEventListener('click', function (e) {
-    var button = e.target;
+  document.addEventListener('click', function (event) {
+    var button = event.target;
     if (hasClass(button, 'active')) {
       return false;
     } else if (hasClass(button, 'list-group-item')) {
@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   socket.on('send', function (message) {
+    console.log("MESSAGE FROM SERVER: ", message);
     const li = document.createElement('li');
     li.innerHTML = `${message.time} - ${message.username}: ${message.message}`;
     li.setAttribute("style", "animation-name:show;animation-duration:.5s;animation-fill-mode:forwards;");
@@ -95,10 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // When a message is sent call 'send message' function from server
-  document.querySelector('#send-message').onsubmit = function () {
-    var message = document.querySelector('#m').value;
+  document.querySelector('#send-message').onsubmit = function (event) {
+    event.preventDefault();
+    var message = document.querySelector('#user-message').value;
     var channel = document.querySelector('.active').innerHTML;
-    message = sanitizeHTML(message);
+
+    //  message = sanitizeHTML(message);
     messageCounter += 1;
     if (messageCounter > 4) {
       window.alert("Please don't spam the chat.");
@@ -116,13 +119,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return false;
     }
 
+    console.log('Message ', message);
+    console.log('channel', channel);
     socket.emit('send message', { 'channel': channel, 'message': message, 'username': username });
-    document.querySelector('#m').value = "";
+    document.querySelector('#user-message').value = "";
     return false;
   };
 
   // Form submission
-  document.querySelector('.channel-create').onsubmit = function () {
+  document.querySelector('.button-create-channel').onsubmit = function () {
     var channelCount = localStorage.getItem("channelCount");
     if (channelCount == 1) {
       allowed = false;
@@ -130,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return false;
     }
 
-    var channel = document.querySelector('#c').value;
+    var channel = document.querySelector('#u').value;
 
     var allowed = true;
     if (channel.match(/^[0-9a-zA-Z]{1,16}$/)) {
