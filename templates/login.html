@@ -4,12 +4,19 @@
 <script src="{{ url_for('static', filename='login.js')}}"></script>
 {% endblock %}
 {% block body %}
-  <div id="center-form">
-    <object class="titleimage" data="{{ url_for('static', filename='images/flack.svg') }}"></object>
-    <form id="login">
-      <div class="form-group">
-        <input id="username" type="text" class="form-control input-lg" autofocus="true" autocomplete="off" placeholder="Enter Username">
+  <div class="container">
+      <div class="logo">
+        <object class="wave" data="{{ url_for('static', filename='images/wave.svg') }}"></object>
       </div>
-      <button id="enterchat" type="submit" class="btn  btn-info btn-lg">Join Chat</button>
+    <div class="login">
+      <div class="greeting">
+        <h2>Welcome to Wave</h2>
+        <h4>Choose your username and hop into the chat!</h4>
+      </div>
+      <form class="form">
+        <input class="input username" type="text">
+        <button type="submit" id="login" class="button-main join">Join</button>
+      </form>
     </div>
+  </div>
 {% endblock %}

@@ -2,47 +2,32 @@
 {% block head%}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/chatroom.css') }}">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='chatroom.js')}}"></script>
 {% endblock %}
 {% block body %}
-<div id="wrapper">
-  <div id="header">
-    <object class="headerimage" data="{{ url_for('static', filename='images/flackH.svg') }}"></object>
-  </div>
-  <div class="chatroom">
-    <div id="contain">
-      <div id="channels">
-        <div class="list-group">
-          <button class="list-group-item list-group-item-action active">General</button>
-          {% for channel in channels %}
-          <button class="list-group-item list-group-item-action">{{ channel }}</button>
-          {% endfor %}
-        </div>
-        <div class="create-channel">
-          <form class="channel-create">
-              <div class="form-group">
-                <input type="text" id="c" class="form-control" autocomplete="off" placeholder="Create a channel"></div>
-          </form>
-        </div>
+<div class="container">
+  <div class="client">
+    <div class="col channels">
+      <div class="channel-heading">
+        Channels
       </div>
-      <div id="chat">
-        <ul id="messages">
-          {% for dict in messages %}
-            <li>{{dict.time}} - {{ dict.username }} : {{dict.message}}</li>
-          {% endfor %}
-        </ul>
-        <div class="input">
-          <form id="send-message">
-              <div class="form-group">
-                <input type="text" id="m" class="form-control" autofocus="true" autocomplete="off" placeholder="Send a message"></div>
-          </form>
-        </div>
+      <div class="channel active">General</div>
+      <div class="create-channel">
+        <button class="button-create-channel">+</button>
       </div>
+
+    </div>
+    <div class="col messages">
+      <ul id="messages">
+        <li>Message</li>
+      </ul>
+      <form id="send-message" class='user-input'>
+        <input type="text" name="" id="user-message">
+        <button class="button-main">Send</button>
+      </form>
     </div>
   </div>
+
 </div>
-
-
 
 {% endblock %}

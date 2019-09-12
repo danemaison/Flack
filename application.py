@@ -29,21 +29,19 @@ def chatroom():
 
 @socketio.on("send message")
 def message(message):
+    print(message)
     time = datetime.datetime.now()
     time = str(time.hour) + ":" + str(time.minute) + ":" + str(time.second)
     room = message["channel"]
+    print(room)
     channel = room.lower()
     username = message["username"]
     message = message["message"]
     messages.setdefault(channel, []).append({"time":time,"username":username, "message":message})
     if len(messages[channel]) == 100:
         messages[channel].pop(0)
+    print('emit')
     emit('send', {'time':time,'username':username, 'message': message}, room=room, broadcast=True)
-
-
-@socketio.on("my_event")
-def test_message(message):
-    emit('my_response', {'data':message['data']})
 
 
 @socketio.on('join')
