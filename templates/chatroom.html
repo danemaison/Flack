@@ -1,33 +1,44 @@
 {% extends "layout.html" %}
 {% block head%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/chatroom.css') }}">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
-<script src="{{ url_for('static', filename='chatroom.js')}}"></script>
+<script src="{{ url_for('static', filename='chatroom2.js')}}"></script>
 {% endblock %}
 {% block body %}
+
+<div id="channel-overlay" class="channel-overlay">
+  <div class="channel-overlay-container">
+    <div class="cancel"><i class="fas fa-times fa-2x"></i><br>esc</div>
+    <h1>Create a Channel</h1>
+    <form id="create-channel" class='user-input'>
+      <input autocomplete="off" type="text" id="channel-name">
+      <button class="button-main">Create</button>
+    </form>
+  </div>
+</div>
 <div class="container">
   <div class="client">
-    <div class="col channels">
-      <div class="channel-heading">
-        Channels
+    <div class="col channel-wrapper">
+    <div id="channels" class="channel-list">
+        <div class="channel-heading">
+         <strong>Channels</strong>
+        </div>
+        <div class="channel active">General</div>
       </div>
-      <div class="channel active">General</div>
       <div class="create-channel">
-        <button class="button-create-channel">+</button>
+        <button id="open-channel-overlay" class="button-create-channel"><i class="fas fa-plus"></i></button>
       </div>
-
     </div>
     <div class="col messages">
-      <ul id="messages">
-        <li>Message</li>
-      </ul>
+      <div id="messages">
+      </div>
       <form id="send-message" class='user-input'>
-        <input type="text" name="" id="user-message">
+        <input autofocus autocomplete="off" type="text" id="user-message">
         <button class="button-main">Send</button>
       </form>
     </div>
   </div>
-
 </div>
 
 {% endblock %}
