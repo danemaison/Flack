@@ -1,15 +1,11 @@
-document.addEventListener('DOMContentLoaded', function(){
-  // if (localStorage.getItem('username') != null){
-  //   // window.location = "/chatroom";
-  // }
-  // else{
-    document.querySelector('.form').onsubmit = function(event){
-      console.log(event);
-      event.preventDefault();
-      return false;
-    };
-    document.querySelector('.join').onclick = function(){
-      console.log('hello');
+$(document).ready(init)
+
+function int(){
+  $('.form').on('submit', function(event){
+    return false;  
+  });
+  
+  $('.join').on('click', function(){
       var username = document.querySelector('.username').value;
       var allowed = true;
 //       if (username.match(/^[0-9a-zA-Z]{1,16}$/)){
@@ -36,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function(){
         window.alert("Please try again.");
         return false;
       }
-    };
-  // }
-});
+  });
+
+}
+
+
