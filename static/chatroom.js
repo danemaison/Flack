@@ -15,6 +15,7 @@ function init(){
   }
   applyClickHandlers();
   fetchChannels();
+  scrollToTop();
 }
 
 function applyClickHandlers(){
@@ -46,9 +47,12 @@ function sendMessage(event){
 }
 
 function createChannel(event){
+  let channelName = $('#channel-name').val();
+  let channelDescription = $('#channel-description').val();
   event.preventDefault();
   socket.emit('createChannel', {
-    channel: event.currentTarget[0].value,
+    channel: channelName,
+    description: channelDescription
   });
   toggleChannelOverlay();
 }
@@ -95,29 +99,23 @@ function loadChannel(channel){
 
 function renderAllChannels(channels){
   $('.channel').remove();
-  for(var channel of channels){
-    $('#channels')
-      .append(
-          $('<div>')
-            .addClass('channel')
-            .text(channel)
-            .on('click', changeChannel)
-      );
+  for(let channel in channels){
+    let channelContainer = $('<div>').addClass('channelContainer');
+    let channelHeading = $('<div>').addClass('channel')
+                                  .text(channel);
+    let channelDescription = $('<div>').addClass('description')
+                                     .text(channels[channel]);
+    channelContainer.append(channelHeading, channelDescription);
+    $('#channels').append(channelContainer);
   }
   loadChannel(currentChannel);
 }
 
 function fetchChannels(){
   fetch('/channels')
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      renderAllChannels(data)
-    })
-    .catch(function (error) {
-      console.error('Error: ', error);
-    });
+    .then(response=>response.json())
+    .then(data =>renderAllChannels(data))
+    .catch(error =>console.error('Error: ', error));
 }
 
 function displayMessages(messages){
@@ -170,24 +168,32 @@ function renderMessage(username, time, message){
       text: message,
     });
   }
-
+  div.addClass('invisible');
   div.append(usernameElement, timeElement, messageElement);
   display.append(div);
-  var messages = document.querySelector('#messages');
-  messages.scrollTop = messages.scrollHeight;
+  requestAnimationFrame(()=> div.removeClass('invisible').addClass('visible'));
+  scrollToTop();
 }
 
 function renderChannel(data){
-  console.log(data);
-  var channelElement = $('<div>')
-                          .addClass('channel')
-                          .text(data.channel)
-                          .on('click', changeChannel);
-  $('#channels').append(channelElement);
+  const channel = data.channel;
+  const description = data.description;
+  const channelContainer = $('<div>').addClass('channelContainer');
+  const channelHeading = $('<div>').addClass('channel')
+    .text(channel);
+  const channelDescription = $('<div>').addClass('description')
+    .text(description);
+  channelContainer.append(channelHeading, channelDescription);
+  $('#channels').append(channelContainer);
 }
 
 function toggleChannelOverlay() {
   $('#channel-overlay').toggleClass('visible');
+}
+
+function scrollToTop(){
+  const messages = document.querySelector('#messages');
+  messages.scrollTop = messages.scrollHeight;
 }
 
 /* *** socket responses *** */

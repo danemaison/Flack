@@ -12,9 +12,12 @@ socketio = SocketIO(app)
 time = datetime.datetime.now()
 time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
+channels = {
+    'general':'Discuss anything',
+}
+
 messages = defaultdict(list)
 messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
-channels = ["General", "Programming"]
 
 @app.route('/channels')
 def renderChannels():
@@ -75,10 +78,14 @@ def leaveChannel(data):
 
 @socketio.on('createChannel')
 def createChannel(data):
+
     channel = data['channel']
-    channels.append(channel)
+    description = data['description']
+
+
+    channels[channel] = description
     emit('channelCreated',
-        {'channel': channel},
+        {'channel': channel, 'description': description},
         broadcast=True)
 
 if __name__ == '__main__':
