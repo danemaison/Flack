@@ -1,5 +1,5 @@
 ## Check out a live demo here:
-https://flack-chat.herokuapp.com
+https://wave-chat.herokuapp.com
 
 ## To use this application locally:
 
