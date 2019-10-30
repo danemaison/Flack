@@ -6,8 +6,8 @@ function init(){
   });
 
   $('.join').on('click', function(){
-      var username = document.querySelector('.username').value;
-      var allowed = true;
+      const username = document.querySelector('.username').value;
+      let allowed = true;
       if (username.match(/^[0-9a-zA-Z]{1,16}$/)){
         allowed = true;
       }
