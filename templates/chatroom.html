@@ -8,6 +8,7 @@
 {% block body %}
 
 <div id="channel-overlay" class="channel-overlay">
+  <div class="channel-overlay-wave"></div>
   <div class="channel-overlay-container">
     <div class="cancel"><i class="fas fa-times fa-2x"></i><br>esc</div>
     <h1>Create a Channel</h1>
@@ -26,6 +27,7 @@
     <div class="col channel-wrapper">
       <div class="channel-heading">
         <strong>Wave</strong>
+        <img class="wave-svg" src="{{ url_for('static', filename='images/wave4.svg') }}"></img>
       </div>
       <div class="search-rooms" id="search-rooms">
         <input type="text" placeholder="Search rooms">
@@ -40,6 +42,7 @@
         </button>
       </div>
       <div class="exit">
+        <img class="wave-svg" src="{{ url_for('static', filename='images/wave-reflect-y.svg') }}"></img>
          Exit Wave <i class="fas fa-door-open"></i>
       </div>
     </div>

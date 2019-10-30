@@ -15,6 +15,7 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
 .container {
   display: flex;
   justify-content: center;
@@ -52,16 +53,29 @@ body {
 }
 
 .channel-heading {
-  color: rgb(85,	198,	202);
+  /* background-image: url('../images/wave4.svg');
+  background-size:fill;
+  background-repeat: no-repeat;
+  background-position: bottom; */
+  background-color: rgb(109, 174, 219);
+  /* color: rgb(85,	198,	202); */
+  color:white;
   /* font-family: hucklebuck-jf, sans-serif; */
   font-weight: 400;
   font-style: normal;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height:12.5%;
   width: 100%;
   font-size: 1.75rem;
+}
+.channel-heading > .wave-svg{
+  position: absolute;
+  bottom:-1px;
+  padding:-25px;
+  width:100%;
 }
 .search-rooms{
   opacity: .5;
@@ -78,6 +92,11 @@ body {
   border-radius:50px;
   height:25px;
   width:90%;
+}
+.search-rooms > input:focus{
+  outline: 0;
+  border: 1px solid rgb(109, 174, 219);
+  box-shadow: 0 0 3px rgb(109, 174, 219);
 }
 .fa-search{
   color:rgb(182, 182, 182);
@@ -96,10 +115,23 @@ body {
 }
 
 .channelContainer{
-  margin-bottom:15px;
-  width:70%;
+  padding:15px;
+  width:100%;
   text-align: left;
 }
+.channelContainer.active{
+ background-color: rgb(236,	241,	245	);
+}
+.channelContainer:hover {
+  cursor: pointer;
+}
+.channelContainer.active {
+  /* background-color: rgba(0, 0, 0, .1); */
+  pointer-events: none;
+  /* border-radius: 50px; */
+  /* background-color: rgb(85,	198,	202); */
+}
+
 .channel {
   font-weight: bold;
   text-transform: capitalize;
@@ -107,21 +139,12 @@ body {
   /* color: rgb(122, 130, 135 ); */
   color: black;
   width: 100%;
-  border-bottom: 1px solid white;
 }
 .description{
   color: rgb(122, 130, 135 );
   font-size: .75rem;
 }
-.channel:hover {
-  cursor: pointer;
-}
-.channel.active {
-  /* background-color: rgba(0, 0, 0, .1); */
-  pointer-events: none;
-  border-radius: 50px;
-  /* background-color: rgb(85,	198,	202); */
-}
+
 .create-channel {
   display:flex;
   flex-direction: column;
@@ -135,7 +158,7 @@ body {
   color: white;
   padding: 10px;
   border-radius:50px;
-  background-color: rgb(85,	198,	202);
+  background-color: #6DAEDB;
   width:60%;
   border: none;
   font-size: .8rem;
@@ -143,14 +166,25 @@ body {
 }
 
 .exit{
+  position: relative;
+  color:black;
+  /* background-color: rgb(85,	198,	202); */
   /* justify-self: flex-end; */
+  box-shadow: 0 -4px 5px -2px rgba(0, 0, 0, .1);
   align-items: center;
   display: flex;
   justify-content: space-around;
   width: 100%;
-  height: 60px;
-  margin-bottom: 10px;
-  padding-top: 10px;
+  height: 70px;
+  padding: 10px 0;
+}
+
+.exit > .wave-svg{
+  display:none;
+  position: absolute;
+  top: 0px;
+  padding:-25px;
+  width:100%;
 }
 
 /******************
@@ -176,7 +210,7 @@ body {
 }
 .messages-wrapper #users{
   font-weight: 500;
-  color: rgb(85,	198,	202);
+  color: rgb(109, 174, 219);
 }
 .message.mod {
   color: rgba(0, 0, 0, 0.5);
@@ -225,8 +259,8 @@ body {
 }
 .user-input > input:focus{
   outline: 0;
-  border: 1px solid rgb(85,	198, 202);
-  box-shadow: 0 0 2px rgb(85,	198, 202);
+  border: 1px solid rgb(109, 174, 219);
+  box-shadow: 0 0 2px rgb(109, 174, 219);
 }
 .user-input > button {
   border-radius:50px;
@@ -287,19 +321,12 @@ body {
 
 *******************/
 
-.channel-overlay-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 65%;
-  height: 65%;
-}
+
 .channel-overlay.visible {
-  transition: 0.5s ease-out;
   top: 0;
 }
 .channel-overlay {
+  color:white;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -309,10 +336,10 @@ body {
   position: fixed;
   height: 100vh;
   width: 100%;
-  top: -100vh;
+  top: calc(100vh + 50px);
   left: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  transition: 0.5s ease-out;
+  background-color: rgba(45, 123, 196, 0.795);
+  transition: 1.5s ease-in-out;
 }
 
 .channel-overlay .cancel {
@@ -325,26 +352,60 @@ body {
   cursor: pointer;
 }
 
+.channel-overlay-wave{
+  background: url(../images/overlay-fill.svg);
+  background-size: auto 100%;
+  background-repeat:repeat-x;
+  position: absolute;
+  top:-50px;
+  left:0;
+  width:6000px;
+  height:50px;
+  z-index:100;
+  animation: wave 5s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+  transform: translate3d(0, 0, 0);
+}
+.channel-overlay-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75%;
+  height: 80%;
+}
 .channel-creation-form{
   display:flex;
   flex-direction:column;
-  height: 60px;
+  width:100%;
   margin-bottom: 10px;
   padding-top: 10px;
 }
+.channel-creation-form > label{
 
+}
 .channel-creation-form > input {
-  border-radius:50px;
+  margin-bottom:10px;
+  border-radius:5px;
   font-family: inherit;
   font-size: 1rem;
   padding: 15px;
-  width: 75%;
+  width: 100%;
   border: 1px solid rgb(182, 182, 182);
   transition: .2s;
 }
+
+.channel-creation-form > button{
+  color:inherit;
+  font-size:1rem;
+  font-family:inherit;
+  background-color:white;
+  padding:15px;
+  background-color:transparent;
+}
+
 .user-input > input:focus{
   outline: 0;
-  box-shadow: 0 0 2px rgb(85,	198, 202);
+  box-shadow: 0 0 2px rgb(109, 174, 219);
 }
 .user-input > button {
   border-radius:50px;
@@ -352,4 +413,20 @@ body {
   font-size: 1rem;
   width: 10%;
   border: 1px solid rgb(182, 182, 182);
+}
+
+
+/******************
+
+      ANIMATION
+
+
+*******************/
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -1600px;
+  }
 }

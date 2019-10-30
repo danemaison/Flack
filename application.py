@@ -1,4 +1,5 @@
 import os
+import sys
 
 from flask import Flask, render_template, url_for, jsonify
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -12,9 +13,16 @@ socketio = SocketIO(app)
 time = datetime.datetime.now()
 time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
-channels = {
-    'general':'Discuss anything',
-}
+channels = [
+    {
+        'channelName': 'general',
+        'description': 'Discuss anything',
+    },
+    {
+        'channelName':'programming',
+        'description': 'Discuss programming'
+    }
+]
 
 messages = defaultdict(list)
 messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
@@ -59,33 +67,32 @@ def sendMessage(message):
 @socketio.on('joinChannel')
 def joinChannel(data):
     username = data['username']
-    channel = data['channel']
-    join_room(channel)
+    channelName = data['channelName']
+    join_room(channelName)
     emit('message',
-        {'message': username + ' has entered the room ' + channel + '.'},
+        {'message': username + ' has entered the room ' + channelName + '.'},
         broadcast=True,
-        room=channel)
+        room=channelName)
 
 @socketio.on('leaveChannel')
 def leaveChannel(data):
     username = data['username']
-    channel = data['channel']
-    leave_room(channel)
+    channelName = data['channelName']
+    leave_room(channelName)
     emit('message',
-        {'message': username + ' has left the room ' + channel + '.'},
+        {'message': username + ' has left the room ' + channelName + '.'},
         broadcast=True,
-        room=channel)
+        room=channelName)
 
 @socketio.on('createChannel')
 def createChannel(data):
 
-    channel = data['channel']
+    channels.append(data)
+    channelName = data['channelName']
     description = data['description']
 
-
-    channels[channel] = description
     emit('channelCreated',
-        {'channel': channel, 'description': description},
+        {'channelName': channelName, 'description': description},
         broadcast=True)
 
 if __name__ == '__main__':
