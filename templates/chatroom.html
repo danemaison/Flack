@@ -3,41 +3,76 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/chatroom.css') }}">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
-<script src="{{ url_for('static', filename='chatroom2.js')}}"></script>
+<script src="{{ url_for('static', filename='chatroom.js')}}"></script>
 {% endblock %}
 {% block body %}
 
 <div id="channel-overlay" class="channel-overlay">
+  <div class="channel-overlay-wave"></div>
   <div class="channel-overlay-container">
     <div class="cancel"><i class="fas fa-times fa-2x"></i><br>esc</div>
     <h1>Create a Channel</h1>
-    <form id="create-channel" class='user-input'>
+    <form id="create-channel" class='channel-creation-form'>
+      <label for="channel-name">Name</label>
       <input autocomplete="off" type="text" id="channel-name">
+      <label for="channel-description">Description</label>
+      <input autocomplete="off" type="text" id="channel-description">
       <button class="button-main">Create</button>
     </form>
   </div>
 </div>
 <div class="container">
   <div class="client">
+    <!-- Channels -->
     <div class="col channel-wrapper">
-    <div id="channels" class="channel-list">
-        <div class="channel-heading">
-         <strong>Channels</strong>
-        </div>
+      <div class="channel-heading">
+        <strong>Wave</strong>
+        <img class="wave-svg" src="{{ url_for('static', filename='images/wave4.svg') }}"></img>
+      </div>
+      <div class="search-rooms" id="search-rooms">
+        <input type="text" placeholder="Search rooms">
+        <i class="fas fa-search"></i>
+      </div>
+      <div id="channels" class="channel-list">
         <div class="channel active">General</div>
       </div>
       <div class="create-channel">
-        <button id="open-channel-overlay" class="button-create-channel"><i class="fas fa-plus"></i></button>
+        <button id="open-channel-overlay" class="button-create-channel">Create Channel
+          <!-- <i class="fas fa-plus fa-sm"></i> -->
+        </button>
+      </div>
+      <div class="exit">
+        <img class="wave-svg" src="{{ url_for('static', filename='images/wave-reflect-y.svg') }}"></img>
+         Exit Wave <i class="fas fa-door-open"></i>
       </div>
     </div>
-    <div class="col messages">
+    <!-- End Channels -->
+    <!-- Messages -->
+    <div class="col messages-wrapper">
+      <div class="current-channel">
+        <span>Discuss Anything &nbsp;</span><span id="users">(15)</span>
+      </div>
       <div id="messages">
       </div>
       <form id="send-message" class='user-input'>
-        <input autofocus autocomplete="off" type="text" id="user-message">
+        <input autofocus autocomplete="off" type="text" placeholder="Type something here..." id="user-message">
+        <button class='button-main'><i class="far fa-smile"></i></button>
         <button class="button-main">Send</button>
       </form>
     </div>
+    <!-- End Messages -->
+    <!-- Users -->
+    <!-- <div class="col user-wrapper">
+      <div class="current-user">
+        Dane
+      </div>
+      <div class="available-users">
+        Users
+      </div>
+      <div class="search-users">
+        Search people <i class="fas fa-search"></i>
+      </div>
+    </div> -->
   </div>
 </div>
 

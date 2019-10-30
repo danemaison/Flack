@@ -1,193 +1,198 @@
-var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
 $(document).ready(init)
 
-var username = localStorage.getItem('username');
-var currentChannel = localStorage.getItem('channel');
+const username = localStorage.getItem('username');
+let currentChannel = localStorage.getItem('channel');
 
-if(!currentChannel){
+if (!currentChannel) {
   currentChannel = 'general';
 }
 
-function init(){
-  if(!username){
+function init() {
+  if (!username) {
     window.location = "/";
   }
   applyClickHandlers();
   fetchChannels();
+  scrollToTop();
 }
 
-function applyClickHandlers(){
+function applyClickHandlers() {
   $('#send-message').on('submit', sendMessage);
-  $('.channel').on('click', changeChannel);
+  $('#channels').on('click', '.channelContainer', changeChannel);
   $('#open-channel-overlay').on('click', toggleChannelOverlay);
   $('#create-channel').on('submit', createChannel);
   $('.channel-overlay-container > .cancel').on('click', toggleChannelOverlay);
-  $(document).on('keydown', function(event){
-    if(event.keyCode === 27){
+  $(document).on('keydown', function (event) {
+    if (event.keyCode === 27) {
       $('#channel-overlay').removeClass('visible');
     }
   });
 }
 
-function sendMessage(event){
+function sendMessage(event) {
   event.preventDefault();
-
-  var message = $('#user-message').val();
+  const message = $('#user-message').val();
   $('#user-message').val("");
 
-  var channel = $('.active').text();
+  const channel = $('.channelContainer.active > .channel').text();
 
   socket.emit('sendMessage', {
     channel: channel,
     username: username,
     message: message,
-     });
+  });
 }
 
-function createChannel(event){
+function createChannel(event) {
+  const channelName = $('#channel-name').val();
+  const channelDescription = $('#channel-description').val();
   event.preventDefault();
   socket.emit('createChannel', {
-    channel: event.currentTarget[0].value,
+    channelName: channelName,
+    description: channelDescription
   });
   toggleChannelOverlay();
 }
 
-function changeChannel(event){
+function changeChannel(event) {
   socket.emit('leaveChannel', {
-    channel: currentChannel,
+    channelName: currentChannel,
     username: username,
   });
 
 
-  currentChannel = event.currentTarget.innerText
+  currentChannel = $(event.currentTarget).find('.channel').text();
   currentChannel = currentChannel.toLowerCase()
   localStorage.setItem('channel', currentChannel);
 
   loadChannel(currentChannel);
 }
 
-function loadChannel(channel){
+function loadChannel(channel) {
   // swap active class
-  $('.channel.active').removeClass('active');
-  var allChannels = $('.channel');
+  $('.channelContainer.active').removeClass('active');
+  const allChannels = $('.channel');
 
-  for(var i = 0; i < allChannels.length; i++){
-    if(allChannels[i].innerText.toLowerCase() === channel){
-      $(allChannels[i]).addClass('active');
+  for (let i = 0; i < allChannels.length; i++) {
+    if (allChannels[i].innerText.toLowerCase() === channel) {
+      $(allChannels[i]).parent().addClass('active');
     }
   }
 
-  var url = '/chatroom/' + channel.toLowerCase();
+  const url = '/chatroom/' + channel.toLowerCase();
 
-  fetch(url).then(function(response){
-    return response.json();
-  }).then(function(data){
-    displayMessages(data);
-    socket.emit('joinChannel', {
-      channel: currentChannel,
-      username: username,
+  fetch(url)
+    .then(response=>response.json())
+    .then(data =>{
+      displayMessages(data);
+      socket.emit('joinChannel', {
+        channelName: currentChannel,
+        username: username,
+      })
     })
-  }).catch(function(error){
-    console.error('Error: ', error);
-  })
+    .catch(error=>console.error('Error: ', error));
 }
 
-function renderAllChannels(channels){
+function renderAllChannels(channels) {
   $('.channel').remove();
-  for(var channel of channels){
-    $('#channels')
-      .append(
-          $('<div>')
-            .addClass('channel')
-            .text(channel)
-            .on('click', changeChannel)
-      );
+  for(let channel of channels){
+      const channelContainer = $('<div>').addClass('channelContainer');
+      const channelHeading = $('<div>').addClass('channel')
+        .text(channel.channelName);
+      const channelDescription = $('<div>').addClass('description')
+        .text(channel.description);
+      channelContainer.append(channelHeading, channelDescription);
+      $('#channels').append(channelContainer);
   }
+
   loadChannel(currentChannel);
 }
 
-function fetchChannels(){
+function fetchChannels() {
   fetch('/channels')
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      renderAllChannels(data)
-    })
-    .catch(function (error) {
-      console.error('Error: ', error);
-    });
+    .then(response => response.json())
+    .then(data => renderAllChannels(data))
+    .catch(error => console.error('Error: ', error));
 }
 
-function displayMessages(messages){
-  var display = $('#messages');
-  if(Array.isArray(messages)){
+function displayMessages(messages) {
+  const display = $('#messages');
+  if (Array.isArray(messages)) {
     display.empty();
-    for (var messageData of messages) {
+    for (let messageData of messages) {
       renderMessage(messageData.username, messageData.time, messageData.message);
     }
   }
-  else{
+  else {
     renderMessage(messages.username, messages.time, messages.message);
   }
-
 }
 
-function renderMessage(username, time, message){
-  var display = $('#messages');
-  var lastDiv = $('#messages > div:last-child');
-  var lastUser = lastDiv.find('.username').text();
-
-  var div = $('<div>');
+function renderMessage(username, time, message) {
+  const display = $('#messages');
+  const lastDiv = $('#messages > div:last-child');
+  const lastUser = lastDiv.find('.username').text();
+  let messageElement, usernameElement, timeElement;
+  const div = $('<div>');
   if (lastUser === username) {
-    var messageElement = $('<div>', {
+    messageElement = $('<div>', {
       class: 'message',
       text: message,
     })
     lastDiv.append(messageElement);
-    var messages = document.querySelector('#messages');
+    const messages = document.querySelector('#messages');
     messages.scrollTop = messages.scrollHeight;
     return;
   }
-  else if(username && time ) {
-    var usernameElement = $('<div>', {
+  else if (username && time) {
+    usernameElement = $('<div>', {
       class: 'username',
       text: username,
     });
-    var timeElement = $('<div>', {
+    timeElement = $('<div>', {
       class: 'time',
       html: '&nbsp; - ' + time,
     });
-    var messageElement = $('<div>', {
+    messageElement = $('<div>', {
       class: 'message',
       text: message,
     });
   }
-  else{
-    var messageElement = $('<div>', {
+  else {
+    messageElement = $('<div>', {
       class: 'message mod',
       text: message,
     });
   }
-
+  div.addClass('invisible');
   div.append(usernameElement, timeElement, messageElement);
   display.append(div);
-  var messages = document.querySelector('#messages');
-  messages.scrollTop = messages.scrollHeight;
+  requestAnimationFrame(() => div.removeClass('invisible').addClass('visible'));
+  scrollToTop();
 }
 
-function renderChannel(data){
-  console.log(data);
-  var channelElement = $('<div>')
-                          .addClass('channel')
-                          .text(data.channel)
-                          .on('click', changeChannel);
-  $('#channels').append(channelElement);
+function renderChannel(data) {
+  const channel = data.channelName;
+  const description = data.description;
+
+  const channelContainer = $('<div>').addClass('channelContainer');
+  const channelHeading = $('<div>').addClass('channel')
+    .text(channel);
+  const channelDescription = $('<div>').addClass('description')
+    .text(description);
+  channelContainer.append(channelHeading, channelDescription);
+  $('#channels').append(channelContainer);
 }
 
 function toggleChannelOverlay() {
   $('#channel-overlay').toggleClass('visible');
+}
+
+function scrollToTop() {
+  const messages = document.querySelector('#messages');
+  messages.scrollTop = messages.scrollHeight;
 }
 
 /* *** socket responses *** */
