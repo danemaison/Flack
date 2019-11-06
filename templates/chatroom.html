@@ -7,6 +7,11 @@
 {% endblock %}
 {% block body %}
 
+<div class="hamburger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 <div id="channel-overlay" class="channel-overlay">
   <div class="channel-overlay-wave"></div>
   <div class="channel-overlay-container">
@@ -21,59 +26,48 @@
     </form>
   </div>
 </div>
-<div class="container">
-  <div class="client">
-    <!-- Channels -->
-    <div class="col channel-wrapper">
-      <div class="channel-heading">
-        <strong>Wave</strong>
-        <img class="wave-svg" src="{{ url_for('static', filename='images/wave4.svg') }}"></img>
-      </div>
-      <div class="search-rooms" id="search-rooms">
-        <input type="text" placeholder="Search rooms">
-        <i class="fas fa-search"></i>
-      </div>
-      <div id="channels" class="channel-list">
-        <div class="channel active">General</div>
-      </div>
-      <div class="create-channel">
-        <button id="open-channel-overlay" class="button-create-channel">Create Channel
-          <!-- <i class="fas fa-plus fa-sm"></i> -->
-        </button>
-      </div>
-      <div class="exit">
-        <img class="wave-svg" src="{{ url_for('static', filename='images/wave-reflect-y.svg') }}"></img>
-         Exit Wave <i class="fas fa-door-open"></i>
-      </div>
+<div class="client">
+  <!-- Channels -->
+  <div class="column channel-wrapper">
+    <div class="channel-heading">
+      <strong>Wave</strong>
+      <img class="wave-svg" src="{{ url_for('static', filename='images/wave4.svg') }}"></img>
     </div>
-    <!-- End Channels -->
-    <!-- Messages -->
-    <div class="col messages-wrapper">
-      <div class="current-channel">
-        <span>Discuss Anything &nbsp;</span><span id="users">(15)</span>
-      </div>
-      <div id="messages">
-      </div>
-      <form id="send-message" class='user-input'>
-        <input autofocus autocomplete="off" type="text" placeholder="Type something here..." id="user-message">
-        <button class='button-main'><i class="far fa-smile"></i></button>
-        <button class="button-main">Send</button>
-      </form>
+    <div class="search-rooms" id="search-rooms">
+      <input type="text" placeholder="Search rooms">
+      <i class="fas fa-search"></i>
     </div>
-    <!-- End Messages -->
-    <!-- Users -->
-    <!-- <div class="col user-wrapper">
-      <div class="current-user">
-        Dane
-      </div>
-      <div class="available-users">
-        Users
-      </div>
-      <div class="search-users">
-        Search people <i class="fas fa-search"></i>
-      </div>
-    </div> -->
+    <div id="channels" class="channel-list">
+      <div class="channel active">General</div>
+    </div>
+    <div class="create-channel">
+      <button id="open-channel-overlay" class="button-create-channel">Create Channel
+        <!-- <i class="fas fa-plus fa-sm"></i> -->
+      </button>
+    </div>
+    <div class="exit">
+      <img class="wave-svg" src="{{ url_for('static', filename='images/wave-reflect-y.svg') }}"></img>
+      Exit Wave <i class="fas fa-door-open"></i>
+    </div>
   </div>
+  <!-- End Channels -->
+  <!-- Messages -->
+  <div class="column messages-wrapper">
+    <div class="current-channel">
+      <div id="header-channel-name"></div>
+      <div id="description">Discuss Anything &nbsp;</div>
+      <!-- <span id="users">(15)</span> -->
+    </div>
+    <div id="messages">
+    </div>
+    <form id="send-message" class='user-input'>
+      <input autofocus autocomplete="off" type="text" placeholder="Type something here..." id="user-message">
+      <button class='button-main'><i class="far fa-smile"></i></button>
+      <button class="button-main">Send</button>
+    </form>
+  </div>
+  <!-- End Messages -->
+
 </div>
 
 {% endblock %}

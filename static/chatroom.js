@@ -19,6 +19,8 @@ function init() {
 }
 
 function applyClickHandlers() {
+  $('.hamburger').on('click', toggleMobileChannelDisplay);
+  $('.exit').on('click', exitClient);
   $('#send-message').on('submit', sendMessage);
   $('#channels').on('click', '.channelContainer', changeChannel);
   $('#open-channel-overlay').on('click', toggleChannelOverlay);
@@ -29,6 +31,16 @@ function applyClickHandlers() {
       $('#channel-overlay').removeClass('visible');
     }
   });
+}
+
+function exitClient(){
+  localStorage.removeItem('username');
+  window.location = "/";
+}
+
+function toggleMobileChannelDisplay(){
+  $('.hamburger').toggleClass('open');
+  $('.channel-wrapper').toggleClass('open');
 }
 
 function sendMessage(event) {
@@ -62,7 +74,7 @@ function changeChannel(event) {
     username: username,
   });
 
-
+  toggleMobileChannelDisplay();
   currentChannel = $(event.currentTarget).find('.channel').text();
   currentChannel = currentChannel.toLowerCase()
   localStorage.setItem('channel', currentChannel);
@@ -117,16 +129,19 @@ function fetchChannels() {
     .catch(error => console.error('Error: ', error));
 }
 
-function displayMessages(messages) {
+function displayMessages(data) {
+  console.log(data);
   const display = $('#messages');
-  if (Array.isArray(messages)) {
+  if (Array.isArray(data.messages)) {
+    $("#description").text(data.meta.description);
+    $("#header-channel-name").text(data.meta.channel);
     display.empty();
-    for (let messageData of messages) {
+    for (let messageData of data.messages) {
       renderMessage(messageData.username, messageData.time, messageData.message);
     }
   }
   else {
-    renderMessage(messages.username, messages.time, messages.message);
+    renderMessage(data.username, data.time, data.message);
   }
 }
 

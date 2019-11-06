@@ -33,7 +33,19 @@ def renderChannels():
 
 @app.route("/chatroom/<string:channel>")
 def channel(channel):
-    return jsonify(messages[channel])
+    for channelData in channels:
+        if channelData['channelName'] == channel:
+            description = channelData['description']
+
+    data = {
+        'meta': {
+            'channel': channel,
+            'description': description,
+        },
+        'messages': messages[channel]
+    }
+
+    return jsonify(data)
 
 @app.route("/")
 def index():
@@ -69,6 +81,7 @@ def joinChannel(data):
     username = data['username']
     channelName = data['channelName']
     join_room(channelName)
+
     emit('message',
         {'message': username + ' has entered the room ' + channelName + '.'},
         broadcast=True,

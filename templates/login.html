@@ -4,20 +4,22 @@
 <script src="{{ url_for('static', filename='login.js')}}"></script>
 {% endblock %}
 {% block body %}
-  <div class="container">
-      <div class="logo">
-        Wave
-        <!-- <object class="wave" data="{{ url_for('static', filename='images/wave.svg') }}"></object> -->
+<div class="container login-container">
+  <div class="row">
+    <div class="column login">
+      <div class="brand">Wave</div>
+      <div>
+        <div class="greeting">
+          <div class="header">Welcome!</div>
+          <div class="subheader">Choose your username</div>
+        </div>
+        <form class="form">
+          <label for="username">Username</label>
+          <input class="input username" name="username" type="text">
+          <button type="submit" id="login" class="button-main join">Join</button>
+        </form>
       </div>
-    <div class="login">
-      <div class="greeting">
-        <h2>Welcome to Wave</h2>
-        <h4>Choose your username and hop into the chat!</h4>
-      </div>
-      <form class="form">
-        <input class="input username" type="text">
-        <button type="submit" id="login" class="button-main join">Join</button>
-      </form>
     </div>
   </div>
+</div>
 {% endblock %}
