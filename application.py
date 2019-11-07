@@ -35,7 +35,6 @@ def renderChannels():
 def channel(channel):
     for channelData in channels:
         if channelData['channelName'] == channel:
-            print("FOUND" + channel)
             description = channelData['description']
 
     data = {
@@ -100,6 +99,9 @@ def leaveChannel(data):
 
 @socketio.on('createChannel')
 def createChannel(data):
+    for channel in channels:
+        if channel['channelName'] == data['channelName']:
+            return
 
     channels.append(data)
     channelName = data['channelName']

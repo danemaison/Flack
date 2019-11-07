@@ -34,7 +34,7 @@ accent: rgb(85,	198,	202);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 12.5%;
+  height: 17%;
   width: 100%;
   font-size: 1.75rem;
 }
@@ -44,39 +44,15 @@ accent: rgb(85,	198,	202);
   padding: -25px;
   width: 100%;
 }
-.search-rooms {
-  opacity: 0.5;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
-}
-.search-rooms > input {
-  padding-left: 10px;
-  border: 1px solid rgb(182, 182, 182);
-  border-radius: 50px;
-  height: 25px;
-  width: 90%;
-}
-.search-rooms > input:focus {
-  outline: 0;
-  border: 1px solid rgb(109, 174, 219);
-  box-shadow: 0 0 3px rgb(109, 174, 219);
-}
-.fa-search {
-  color: rgb(182, 182, 182);
-  position: absolute;
-  font-size: 0.8rem;
-  right: 12%;
-}
+
 .channel-list {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
   height: calc(100% - 12.5% - 120px - 42px);
 }
@@ -98,7 +74,6 @@ accent: rgb(85,	198,	202);
 
 .channel {
   font-weight: bold;
-  text-transform: capitalize;
   font-size: 1rem;
   color: black;
   width: 100%;
@@ -298,6 +273,10 @@ color: rgb(109, 174, 219);
 
 *******************/
 
+#error{
+  color: red;
+
+}
 .channel-overlay.visible {
   top: 0;
 }

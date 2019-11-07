@@ -1,3 +1,6 @@
+body{
+  background-color:rgb(201, 227, 245);
+}
 .login-container{
   justify-content: flex-start;
   height:100vh;
@@ -17,9 +20,11 @@
   width:100%;
   background-color:#0a3b42;
   border: none;
+
+}
+.row.login{
   box-shadow: 0 0 5px rgba(0, 0 ,0 , .25);
 }
-
 form{
   display:flex;
   flex-direction: column;
@@ -65,4 +70,22 @@ label{
   background-color:	#7ba59e;
   color:white;
   border:1px solid 	#7ba59e;
+}
+
+@media only screen and (min-width: 1010px){
+  .brand{
+    margin-bottom:50px;
+  }
+  .login-container{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    height:500px;
+  }
+  .login{
+    height:100%;
+    width:500px;
+    margin:auto;
+  }
 }

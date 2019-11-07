@@ -18,6 +18,7 @@
     <div class="cancel"><i class="fas fa-times fa-2x"></i><br>esc</div>
     <h1>Create a Channel</h1>
     <form id="create-channel" class='channel-creation-form'>
+      <span id="error"></span>
       <label for="channel-name">Name</label>
       <input autocomplete="off" type="text" id="channel-name">
       <label for="channel-description">Description</label>
@@ -33,16 +34,11 @@
       <strong>Wave</strong>
       <img class="wave-svg" src="{{ url_for('static', filename='images/wave4.svg') }}"></img>
     </div>
-    <div class="search-rooms" id="search-rooms">
-      <input type="text" placeholder="Search rooms">
-      <i class="fas fa-search"></i>
-    </div>
     <div id="channels" class="channel-list">
       <div class="channel active">General</div>
     </div>
     <div class="create-channel">
       <button id="open-channel-overlay" class="button-create-channel">Create Channel
-        <!-- <i class="fas fa-plus fa-sm"></i> -->
       </button>
     </div>
     <div class="exit">
@@ -56,18 +52,14 @@
     <div class="current-channel">
       <div id="header-channel-name"></div>
       <div id="description">Discuss Anything &nbsp;</div>
-      <!-- <span id="users">(15)</span> -->
     </div>
     <div id="messages">
     </div>
     <form id="send-message" class='user-input'>
       <input autofocus autocomplete="off" type="text" placeholder="Type something here..." id="user-message">
-      <button class='button-main'><i class="far fa-smile"></i></button>
-      <button class="button-main">Send</button>
     </form>
   </div>
   <!-- End Messages -->
-
 </div>
 
 {% endblock %}

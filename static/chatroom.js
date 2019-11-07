@@ -24,6 +24,7 @@ function resize(){
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 }
+
 function applyClickHandlers() {
   $('.hamburger').on('click', toggleMobileChannelDisplay);
   $('.exit').on('click', exitClient);
@@ -64,9 +65,20 @@ function sendMessage(event) {
 }
 
 function createChannel(event) {
-  const channelName = $('#channel-name').val();
-  const channelDescription = $('#channel-description').val();
   event.preventDefault();
+  displayError(false);
+
+  const channelName = $('#channel-name').val();
+  const channels = $('.channel');
+  for(let channel of channels){
+    if($(channel).text() === channelName){
+      displayError("A channel with that name already exists!");
+      return;
+    }
+  }
+
+  const channelDescription = $('#channel-description').val();
+
   socket.emit('createChannel', {
     channelName: channelName,
     description: channelDescription
@@ -135,7 +147,6 @@ function fetchChannels() {
 }
 
 function displayMessages(data) {
-  console.log(data);
   const display = $('#messages');
   if (Array.isArray(data.messages)) {
     $("#description").text(data.meta.description);
@@ -213,6 +224,15 @@ function toggleChannelOverlay() {
 function scrollToTop() {
   const messages = document.querySelector('#messages');
   messages.scrollTop = messages.scrollHeight;
+}
+
+function displayError(error){
+  const errorElement = $('#error');
+  if(error){
+    errorElement.text(error);
+    return;
+  }
+  errorElement.empty();
 }
 
 /* *** socket responses *** */
