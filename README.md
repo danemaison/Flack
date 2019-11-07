@@ -65,8 +65,15 @@ pip install -r requirements.txt
 
 1. Set the environment variable `FLASK_APP` equal to `application.py`
 
-You can do this by using `export FLASK_APP=application.py` on mac
-or `set FLASK_APP=application.py` on windows
+Mac
+ ```
+ export FLASK_APP=application.py
+ ```
+
+Windows
+```
+set FLASK_APP=application.py
+```
 
 1. Start the application with flask
 `flask run`
