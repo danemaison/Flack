@@ -15,17 +15,17 @@ time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
 channels = [
     {
-        'channelName': 'general',
+        'channelName': 'General',
         'description': 'Discuss anything',
     },
     {
-        'channelName':'programming',
+        'channelName':'Programming',
         'description': 'Discuss programming'
     }
 ]
 
 messages = defaultdict(list)
-messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
+messages['General'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
 
 @app.route('/channels')
 def renderChannels():
@@ -35,6 +35,7 @@ def renderChannels():
 def channel(channel):
     for channelData in channels:
         if channelData['channelName'] == channel:
+            print("FOUND" + channel)
             description = channelData['description']
 
     data = {
@@ -60,7 +61,7 @@ def sendMessage(message):
     time = datetime.datetime.now()
     time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
     channel = message["channel"]
-    channel = channel.lower()
+    channel = channel
 
     username = message["username"]
     message = message["message"]

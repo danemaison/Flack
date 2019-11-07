@@ -6,7 +6,7 @@ const username = localStorage.getItem('username');
 let currentChannel = localStorage.getItem('channel');
 
 if (!currentChannel) {
-  currentChannel = 'general';
+  currentChannel = 'General';
 }
 
 function init() {
@@ -82,7 +82,6 @@ function changeChannel(event) {
 
   toggleMobileChannelDisplay();
   currentChannel = $(event.currentTarget).find('.channel').text();
-  currentChannel = currentChannel.toLowerCase()
   localStorage.setItem('channel', currentChannel);
 
   loadChannel(currentChannel);
@@ -94,12 +93,12 @@ function loadChannel(channel) {
   const allChannels = $('.channel');
 
   for (let i = 0; i < allChannels.length; i++) {
-    if (allChannels[i].innerText.toLowerCase() === channel) {
+    if (allChannels[i].innerText === channel) {
       $(allChannels[i]).parent().addClass('active');
     }
   }
 
-  const url = '/chatroom/' + channel.toLowerCase();
+  const url = '/chatroom/' + channel
 
   fetch(url)
     .then(response=>response.json())
