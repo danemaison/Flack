@@ -51,7 +51,7 @@ accent: rgb(85,	198,	202);
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
   height: calc(100% - 12.5% - 120px - 42px);
@@ -172,7 +172,7 @@ color: rgb(109, 174, 219);
   padding: 15px;
   height: calc(100% - 12.5% - 60px);
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: rgb(245, 248, 250);
 }
 #messages > .invisible {
