@@ -46,35 +46,35 @@ No password required.
 
 1. Clone the repository.
 
-  ```
-  git clone https://github.com/danemaison/wave.git
-  cd wave
-  ```
+    ```
+    git clone https://github.com/danemaison/wave.git
+    cd wave
+    ```
 
 1. Create and activate a new virtual environment
 
-  ```
-  python 3 -m venv env
-  source env/bin/activate
-  ```
+    ```
+    python 3 -m venv env
+    source env/bin/activate
+    ```
 
 1. Install the requirements with pip
 
-  ```
-  pip install -r requirements.txt
-  ```
+    ```
+    pip install -r requirements.txt
+    ```
 
 1. Set the environment variable `FLASK_APP` equal to `application.py`
 
-  Mac
-  ```
-  export FLASK_APP=application.py
-  ```
+    Mac
+    ```
+    export FLASK_APP=application.py
+    ```
 
-  Windows
-  ```
-  set FLASK_APP=application.py
-  ```
+    Windows
+    ```
+    set FLASK_APP=application.py
+    ```
 
 1. Start the application with flask
   `flask run`
