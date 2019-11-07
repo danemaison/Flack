@@ -7,6 +7,7 @@ accent: rgb(85,	198,	202);
   background-color: white;
   width: 100%;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
 }
 
@@ -17,12 +18,7 @@ accent: rgb(85,	198,	202);
 *******************/
 
 .channel-wrapper {
-  /* display:none; */
   z-index: 1;
-  /* position: absolute; */
-  /* top:0; */
-  /* left:0; */
-  /* width:100%; */
   box-shadow: 0px 0 25px rgba(0, 0, 0, 0.05);
   width: 17%;
   height: 100%;
@@ -30,14 +26,8 @@ accent: rgb(85,	198,	202);
 }
 
 .channel-heading {
-  /* background-image: url('../images/wave4.svg');
-  background-size:fill;
-  background-repeat: no-repeat;
-  background-position: bottom; */
   background-color: rgb(109, 174, 219);
-  /* color: rgb(85,	198,	202); */
   color: white;
-  /* font-family: hucklebuck-jf, sans-serif; */
   font-weight: 400;
   font-style: normal;
   position: relative;
@@ -103,17 +93,13 @@ accent: rgb(85,	198,	202);
   cursor: pointer;
 }
 .channelContainer.active {
-  /* background-color: rgba(0, 0, 0, .1); */
   pointer-events: none;
-  /* border-radius: 50px; */
-  /* background-color: rgb(85,	198,	202); */
 }
 
 .channel {
   font-weight: bold;
   text-transform: capitalize;
   font-size: 1rem;
-  /* color: rgb(122, 130, 135 ); */
   color: black;
   width: 100%;
 }
@@ -145,8 +131,6 @@ accent: rgb(85,	198,	202);
 .exit {
   position: relative;
   color: black;
-  /* background-color: rgb(85,	198,	202); */
-  /* justify-self: flex-end; */
   box-shadow: 0 -4px 5px -2px rgba(0, 0, 0, 0.1);
   align-items: center;
   display: flex;
@@ -171,7 +155,6 @@ accent: rgb(85,	198,	202);
 
 *******************/
 .messages-wrapper {
-  /* width: calc(100% - 17%); */
   width: 100%;
   height: 100%;
 }
@@ -190,6 +173,7 @@ accent: rgb(85,	198,	202);
 }
 
 #header-channel-name{
+  color:black;
   margin-bottom:5px;
   text-transform: capitalize;
   font-size: 1.3rem;
@@ -232,7 +216,6 @@ color: rgb(109, 174, 219);
   background-color: white;
 }
 .user-input {
-  /* border-top: 2px solid black; */
   justify-self: flex-end;
   display: flex;
   justify-content: space-around;
@@ -373,8 +356,7 @@ color: rgb(109, 174, 219);
   margin-bottom: 10px;
   padding-top: 10px;
 }
-.channel-creation-form > label {
-}
+
 .channel-creation-form > input {
   margin-bottom: 10px;
   border-radius: 5px;
@@ -433,6 +415,12 @@ color: rgb(109, 174, 219);
   .channel-wrapper.open {
     left: 0;
     top: 0;
+  }
+  .channel-heading{
+    align-items: flex-start;
+  }
+  .channel-heading > strong {
+    margin-top:10px;
   }
   .hamburger{
     cursor:pointer;

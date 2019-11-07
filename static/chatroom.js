@@ -10,6 +10,8 @@ if (!currentChannel) {
 }
 
 function init() {
+  resize();
+  window.addEventListener('resize', resize)
   if (!username) {
     window.location = "/";
   }
@@ -18,6 +20,10 @@ function init() {
   scrollToTop();
 }
 
+function resize(){
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+}
 function applyClickHandlers() {
   $('.hamburger').on('click', toggleMobileChannelDisplay);
   $('.exit').on('click', exitClient);
