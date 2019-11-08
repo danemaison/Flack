@@ -54,7 +54,7 @@ No password required.
 1. Create and activate a new virtual environment
 
     ```
-    python 3 -m venv env
+    python3 -m venv env
     source env/bin/activate
     ```
 
