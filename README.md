@@ -3,7 +3,7 @@
 🌊
 A full-stack chatroom application.
 
-# Technologies used
+# Technologies Used
 
 * JavaScript
 * Socket.IO
