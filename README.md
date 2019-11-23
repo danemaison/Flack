@@ -3,7 +3,7 @@
 🌊
 A full-stack chatroom application.
 
-# Technologies used
+# Technologies Used
 
 * JavaScript
 * Socket.IO
@@ -54,7 +54,7 @@ No password required.
 1. Create and activate a new virtual environment
 
     ```
-    python 3 -m venv env
+    python3 -m venv env
     source env/bin/activate
     ```
 
