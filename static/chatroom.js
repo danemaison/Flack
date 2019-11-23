@@ -6,7 +6,7 @@ const username = localStorage.getItem('username');
 let currentChannel = localStorage.getItem('channel');
 
 if (!currentChannel) {
-  currentChannel = 'General';
+  currentChannel = 'general';
 }
 
 function init() {
