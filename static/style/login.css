@@ -71,6 +71,21 @@ label{
   color:white;
   border:1px solid 	#7ba59e;
 }
+.error-display{
+    width: 100%;
+    border: 1px solid #ca4f4f;
+    height: 25px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ca4f4f;
+    border-radius: 5px;
+}
+
+.hidden{
+  display:none;
+}
 
 @media only screen and (min-width: 1010px){
   .brand{

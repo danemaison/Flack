@@ -1,37 +1,28 @@
-$(document).ready(init)
+$(document).ready(init);
 
 function init(){
-  $('.form').on('submit', function(){
-    return false;
+  $('.form').on('submit', function(e){
+    e.preventDefault();
+    const username = document.querySelector(".username").value;
+    if (username.length === 0) {
+      displayError("Please enter a username");
+    } else if (username.match(/[!@#$%^&*(),.?":{}|<>\s]/)) {
+             displayError(
+               "Please do not use spaces or symbols in your username"
+             );
+           } else if (username.length > 12) {
+             displayError(
+               "Please shorten your username to under 12 characters"
+             );
+           } else {
+             localStorage.setItem("username", `${username}`);
+             window.location = "/chatroom";
+           }
   });
+}
 
-  $('.join').on('click', function(){
-      const username = document.querySelector('.username').value;
-      let allowed = true;
-      if (username.match(/^[0-9a-zA-Z]{1,16}$/)){
-        allowed = true;
-      }
-      else{
-        window.alert("Please do not use spaces or symbols in your username")
-        allowed = false;
-        document.querySelector('.username').value = "";
-        return false;
-      }
-
-      if(username.length > 11){
-        window.alert("Please keep your display name under 12 characters")
-        allowed = false;
-        return false
-      }
-
-      if (allowed == true){
-        localStorage.setItem('username',`${username}`);
-        window.location = "/chatroom";
-      }
-      else{
-        window.alert("Please try again.");
-        return false;
-      }
-  });
-
+function displayError(err) {
+  $(".error-display")
+    .removeClass("hidden")
+    .text(err);
 }
