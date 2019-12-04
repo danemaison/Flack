@@ -95,11 +95,12 @@ accent: rgb(85,	198,	202);
 .button-create-channel {
   color: white;
   padding: 10px;
-  border-radius: 50px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius:12px;
   background-color: #6daedb;
-  width: 60%;
+  width: 80%;
   border: none;
-  font-size: 0.8rem;
+  font-size: 0.62rem;
   border-bottom: 1px solid white;
 }
 
@@ -200,11 +201,11 @@ color: rgb(109, 174, 219);
   padding-top: 10px;
 }
 .user-input > input {
-  border-radius: 50px;
+  border-radius: 2px;
   font-family: inherit;
   font-size: 1rem;
   padding: 15px;
-  width: 75%;
+  width: 95%;
   border: 1px solid rgb(182, 182, 182);
   transition: 0.2s;
 }

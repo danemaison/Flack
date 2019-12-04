@@ -4,6 +4,7 @@
 <script src="{{ url_for('static', filename='login.js')}}"></script>
 {% endblock %}
 {% block body %}
+<img src="/static/images/wave-login-bg.svg" class="background">
 <div class="container login-container">
   <div class="row login">
     <div class="column login">
@@ -15,7 +16,7 @@
         </div>
         <form class="form">
           <label for="username">Username</label>
-          <input class="input username" name="username" type="text">
+          <input autocomplete="off" class="input username" name="username" type="text">
           <button type="submit" id="login" class="button-main join">Join</button>
         </form>
         <div class="error-display hidden">
