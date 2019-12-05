@@ -16,7 +16,7 @@ A full-stack chatroom application.
 
 # Live Demo
 
-Try the application live at: https://wave-chat.herokuapp.com
+Try the application live at: https://chat-wave.herokuapp.com
 
 Use whatever username you'd like to sign in!
 No password required.
