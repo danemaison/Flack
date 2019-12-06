@@ -15,17 +15,17 @@ time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
 channels = [
     {
-        'channelName': 'General',
+        'channelName': 'general',
         'description': 'Discuss anything',
     },
     {
-        'channelName':'Programming',
+        'channelName':'programming',
         'description': 'Discuss programming'
     }
 ]
 
 messages = defaultdict(list)
-messages['General'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
+messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
 
 @app.route('/channels')
 def renderChannels():
