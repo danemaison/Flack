@@ -25,7 +25,7 @@ channels = [
 ]
 
 messages = defaultdict(list)
-messages['general'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
+messages['General'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
 
 @app.route('/channels')
 def renderChannels():
