@@ -15,11 +15,11 @@ time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
 channels = [
     {
-        'channelName': 'general',
+        'channelName': 'General',
         'description': 'Discuss anything',
     },
     {
-        'channelName':'programming',
+        'channelName':'Programming',
         'description': 'Discuss programming'
     }
 ]
