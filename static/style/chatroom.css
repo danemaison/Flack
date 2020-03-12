@@ -96,7 +96,7 @@ accent: rgb(85,	198,	202);
   color: white;
   padding: 10px;
   border-top-right-radius: 12px;
-  border-bottom-left-radius:12px;
+  border-bottom-left-radius: 12px;
   background-color: #6daedb;
   width: 80%;
   border: none;
@@ -148,17 +148,16 @@ accent: rgb(85,	198,	202);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#header-channel-name{
-  color:black;
-  margin-bottom:5px;
+#header-channel-name {
+  color: black;
+  margin-bottom: 5px;
   text-transform: capitalize;
   font-size: 1.3rem;
   font-weight: 700;
-
 }
 
-#description{
-color: rgb(109, 174, 219);
+#description {
+  color: rgb(109, 174, 219);
 }
 
 .messages-wrapper #users {
@@ -274,9 +273,8 @@ color: rgb(109, 174, 219);
 
 *******************/
 
-#error{
+#error {
   color: red;
-
 }
 .channel-overlay.visible {
   top: 0;
@@ -386,51 +384,51 @@ color: rgb(109, 174, 219);
 
 @media only screen and (max-width: 750px) {
   .channel-wrapper {
-    transition:.5s ease-out;
+    transition: 0.5s ease-out;
     position: absolute;
-    width:100%;
-    left:-100%;
+    width: 100%;
+    left: -100%;
   }
 
   .channel-wrapper.open {
     left: 0;
     top: 0;
   }
-  .channel-heading{
+  .channel-heading {
     align-items: flex-start;
   }
   .channel-heading > strong {
-    margin-top:10px;
+    margin-top: 10px;
   }
-  .hamburger{
-    cursor:pointer;
+  .hamburger {
+    cursor: pointer;
     z-index: 9;
     position: absolute;
-    top:25px;
-    right:25px;
+    top: 25px;
+    right: 25px;
     width: 2rem;
     height: 2rem;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
   }
-  .hamburger > div{
-    transition:.5s ease;
+  .hamburger > div {
+    transition: 0.5s ease;
     transform-origin: 1.5px;
-    background-color:#0a3b42;
+    background-color: #0a3b42;
     height: 5px;
     border-radius: 10px;
-    width:2rem;
+    width: 2rem;
   }
-  .hamburger.open > div:first-child{
-    transform:rotate(45deg);
+  .hamburger.open > div:first-child {
+    transform: rotate(45deg);
   }
-  .hamburger.open > div:last-child{
+  .hamburger.open > div:last-child {
     transform: rotate(-45deg);
   }
-  .hamburger.open > div:nth-child(2){
+  .hamburger.open > div:nth-child(2) {
     transform: translateX(10px);
-    opacity:0;
+    opacity: 0;
   }
 }

@@ -1,121 +1,120 @@
-body{
-  background-color:white;
+body {
+  background-color: white;
   overflow-x: hidden;
 }
-.background{
+.background {
   position: absolute;
-  left:0;
-  top:0;
-  height:100vh;
+  left: 0;
+  top: 0;
+  height: 100vh;
   z-index: -1;
 }
-.login-container{
+.login-container {
   justify-content: flex-start;
-  height:100vh;
-  color:white;
+  height: 100vh;
+  color: white;
 }
-.brand{
+.brand {
   text-align: center;
   font-size: 2rem;
   font-weight: 100;
-  margin-bottom:150px;
+  margin-bottom: 150px;
   border-bottom: 1px solid wavy;
 }
-.login{
+.login {
   justify-content: flex-start;
-  padding:15px 15px 100px 15px;
-  height:100vh;
-  width:100%;
+  padding: 15px 15px 100px 15px;
+  height: 100vh;
+  width: 100%;
   border: none;
-
 }
-.login-container{
-  color:black;
-  background-color:rgba(255,255,255,.75);
+.login-container {
+  color: black;
+  background-color: rgba(255, 255, 255, 0.75);
 }
-.row.login{
+.row.login {
   box-shadow: none;
 }
-form{
-  display:flex;
+form {
+  display: flex;
   flex-direction: column;
 }
-.username{
-  border:3px solid black;
-  margin-bottom:5px;
+.username {
+  border: 3px solid black;
+  margin-bottom: 5px;
 }
 
-.greeting{
-  font-weight:300;
+.greeting {
+  font-weight: 300;
   text-align: center;
 }
-.header{
-  font-size:2rem;
-  font-weight:300;
+.header {
+  font-size: 2rem;
+  font-weight: 300;
 }
-.subheader{
-  margin-top:15px;
+.subheader {
+  margin-top: 15px;
   margin-bottom: 25px;
-  font-size:1.25rem;
+  font-size: 1.25rem;
 }
-.input{
-  padding:10px;
+.input {
+  padding: 10px;
   font-size: 1rem;
-  border:1px solid rgb(182, 182, 182);
-  margin-bottom:15px;
+  border: 1px solid rgb(182, 182, 182);
+  margin-bottom: 15px;
 }
-label{
-  font-weight:700;
-  font-size:.6rem;
-  margin-bottom:5px;
+label {
+  font-weight: 700;
+  font-size: 0.6rem;
+  margin-bottom: 5px;
   text-transform: uppercase;
 }
 .button-main,
-.input{
-  font-size:1rem;
-  padding:10px;
-  border-radius:2px;
-  height:45px;
+.input {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 2px;
+  height: 45px;
 }
-.button-main{
-  background-color:	#6daedb;
-  color:white;
-  border:1px solid 	#6daedb;
+.button-main {
+  background-color: #6daedb;
+  color: white;
+  border: 1px solid #6daedb;
 }
-.error-display{
+.error-display {
   width: 100%;
   border: 1px solid #ca4f4f;
   height: 25px;
   margin-top: 15px;
   display: flex;
-  color:white;
+  color: white;
   justify-content: center;
   align-items: center;
   background-color: #ca4f4f;
   border-radius: 2px;
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 
-@media only screen and (min-width: 1010px){
-  .brand{
-    margin-bottom:50px;
+@media only screen and (min-width: 1010px) {
+  .brand {
+    margin-bottom: 50px;
   }
-  .login-container{
+  .login-container {
     position: absolute;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    height:500px;
+    height: 500px;
   }
-  .login{
-    height:100%;
-    width:500px;
-    margin:auto;
+  .login {
+    height: 100%;
+    width: 500px;
+    margin: auto;
   }
-  .row.login{
-    box-shadow: 0 0 5px rgba(0, 0 ,0 , .25);
+  .row.login {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   }
 }
