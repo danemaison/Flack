@@ -194,7 +194,7 @@ function renderMessage(username, time, message) {
     });
     timeElement = $("<div>", {
       class: "time",
-      html: "&nbsp; - " + time
+      html: "&nbsp; - " + formatTime(time)
     });
     messageElement = $("<div>", {
       class: "message",
@@ -244,6 +244,14 @@ function displayError(error) {
     return;
   }
   errorElement.empty();
+}
+
+function formatTime(timestamp) {
+  return new Date(timestamp * 1000).toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true
+  });
 }
 
 /* *** socket responses *** */

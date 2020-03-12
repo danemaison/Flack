@@ -4,14 +4,11 @@ import sys
 from flask import Flask, render_template, url_for, jsonify
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from collections import defaultdict
-import datetime
+import time
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
-
-time = datetime.datetime.now()
-time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
 
 channels = [
     {
@@ -25,7 +22,7 @@ channels = [
 ]
 
 messages = defaultdict(list)
-messages['General'].append({"time":time, "username":"Moderator", "message":"Welcome to the Wave chatroom."})
+messages['General'].append({"time":time.time(), "username":"Moderator", "message":"Welcome to the Wave chatroom."})
 
 @app.route('/channels')
 def renderChannels():
@@ -57,21 +54,19 @@ def chatroom():
 
 @socketio.on("sendMessage")
 def sendMessage(message):
-    time = datetime.datetime.now()
-    time = time.strftime('%d:%%M %%p' % (time.hour % 12 if time.hour % 12 else 12))
     channel = message["channel"]
     channel = channel
 
     username = message["username"]
     message = message["message"]
 
-    messages.setdefault(channel, []).append({"time":time,"username":username, "message":message})
+    messages.setdefault(channel, []).append({"time":time.time(),"username":username, "message":message})
 
     if len(messages[channel]) >= 100:
         messages[channel].pop(0)
 
     emit('message',
-        {'time':time,'username':username, 'message': message},
+        {'time':time.time(),'username':username, 'message': message},
         room=channel,
         broadcast=True)
 
